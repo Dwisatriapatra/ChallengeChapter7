@@ -1,10 +1,14 @@
 package com.example.challengechapter7.dependency_injection
 
+import android.content.Context
 import com.example.challengechapter7.network.ApiGhibliFilmServices
 import com.example.challengechapter7.network.ApiUserServices
+import com.example.challengechapter7.roomdatabase.FavoriteFilmDao
+import com.example.challengechapter7.roomdatabase.FavoriteFilmDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -62,5 +66,15 @@ object GhibliFilmAppModule {
     @Named("GHIBLI_FILM_DATA")
     fun provideGhibliFilmFromApi(@Named("GHIBLI_FILM_RETROFIT") retrofit: Retrofit) :
             ApiGhibliFilmServices = retrofit.create(ApiGhibliFilmServices::class.java)
+
+    @Provides
+    @Singleton
+    fun provideFavoriteGhibliFilmDatabase(@ApplicationContext context: Context) : FavoriteFilmDatabase =
+        FavoriteFilmDatabase.getInstance(context)!!
+
+    @Provides
+    @Singleton
+    fun provideFavoriteGhibliFilmDao(favoriteFilmDatabase: FavoriteFilmDatabase) : FavoriteFilmDao =
+        favoriteFilmDatabase.favoriteFilmDao()
 
 }

@@ -32,6 +32,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
                         .navigate(R.id.action_splashFragment_to_loginFragment)
                 }
             }
-        }, 3000)
+        }, 4000)
     }
 }
