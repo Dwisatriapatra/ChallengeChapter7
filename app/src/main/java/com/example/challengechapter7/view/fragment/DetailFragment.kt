@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.challengechapter7.R
 import com.example.challengechapter7.databinding.FragmentDetailBinding
 
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment(R.layout.fragment_detail) {
     private var detailFragmentBinding: FragmentDetailBinding? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

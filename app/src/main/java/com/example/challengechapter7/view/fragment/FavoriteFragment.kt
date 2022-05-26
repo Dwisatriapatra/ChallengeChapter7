@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.challengechapter7.R
 import com.example.challengechapter7.databinding.FragmentFavoriteBinding
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
     private var favoriteFragmentBinding: FragmentFavoriteBinding? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

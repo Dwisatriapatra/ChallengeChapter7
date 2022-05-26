@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.example.challengechapter7.R
 import com.example.challengechapter7.databinding.FragmentProfileBinding
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private var profileFragmentBinding: FragmentProfileBinding? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
