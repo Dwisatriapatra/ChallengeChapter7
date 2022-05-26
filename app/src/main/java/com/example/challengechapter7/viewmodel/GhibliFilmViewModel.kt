@@ -13,9 +13,11 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @HiltViewModel
-class GhibliFilmViewModel @Inject constructor(@Named("GHIBLI_FILM_DATA") api : ApiGhibliFilmServices) : ViewModel(){
+class GhibliFilmViewModel @Inject constructor(@Named("GHIBLI_FILM_DATA") api: ApiGhibliFilmServices) :
+    ViewModel() {
     private val liveDataGhibliFilm = MutableLiveData<List<GetAllGhibliFilmResponseItem>>()
-    val ghibliFilm : LiveData<List<GetAllGhibliFilmResponseItem>> = liveDataGhibliFilm
+    val ghibliFilm: LiveData<List<GetAllGhibliFilmResponseItem>> = liveDataGhibliFilm
+
     init {
         viewModelScope.launch {
             val dataGhibliFilm = api.getAllGhibliFilms()

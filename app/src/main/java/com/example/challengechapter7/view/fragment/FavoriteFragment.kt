@@ -25,21 +25,24 @@ class FavoriteFragment : Fragment(R.layout.fragment_favorite) {
 
         initView()
     }
+
     private fun initView() {
         adapter = FavoriteFilmAdapter {
             val clickedGhibliFilm = bundleOf("FAVORITEGHIBLIFILMDATA" to it)
-            Navigation.findNavController(requireView()).navigate(R.id.action_favoriteFragment_to_detailFragment, clickedGhibliFilm)
+            Navigation.findNavController(requireView())
+                .navigate(R.id.action_favoriteFragment_to_detailFragment, clickedGhibliFilm)
         }
-        favoriteFragmentBinding!!.rvFavoriteGhibliFilm.layoutManager = LinearLayoutManager(requireContext())
+        favoriteFragmentBinding!!.rvFavoriteGhibliFilm.layoutManager =
+            LinearLayoutManager(requireContext())
         favoriteFragmentBinding!!.rvFavoriteGhibliFilm.adapter = adapter
 
 
         val viewModelFavoriteFilm = ViewModelProvider(this).get(FavoriteFilmViewModel::class.java)
-        viewModelFavoriteFilm.favoriteFilm.observe(viewLifecycleOwner){
-            if(it.isNotEmpty()){
+        viewModelFavoriteFilm.favoriteFilm.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
                 adapter.setDataFavoriteGhibliFilms(it)
                 adapter.notifyDataSetChanged()
-            }else{
+            } else {
                 favoriteFragmentBinding!!.favoriteNoDataAnimation.setAnimation(R.raw.no_favorite_film_data)
             }
         }

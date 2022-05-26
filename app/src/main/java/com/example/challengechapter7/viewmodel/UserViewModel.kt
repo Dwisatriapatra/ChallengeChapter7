@@ -17,10 +17,11 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class UserViewModel @Inject constructor(api : ApiUserServices) : ViewModel(){
+class UserViewModel @Inject constructor(api: ApiUserServices) : ViewModel() {
     private val liveDataUser = MutableLiveData<List<GetAllUserResponseItem>>()
-    val user : LiveData<List<GetAllUserResponseItem>> = liveDataUser
+    val user: LiveData<List<GetAllUserResponseItem>> = liveDataUser
     private val apiServices = api
+
     init {
         viewModelScope.launch {
             val dataUser = api.getAllUser()
@@ -28,11 +29,12 @@ class UserViewModel @Inject constructor(api : ApiUserServices) : ViewModel(){
             liveDataUser.value = dataUser
         }
     }
-    fun insertNewUser(requestUser: RequestUser) : Boolean{
+
+    fun insertNewUser(requestUser: RequestUser): Boolean {
         var messageResponse = false
         viewModelScope.launch {
             apiServices.addDataUser(requestUser)
-                .enqueue(object : Callback<PostNewUser>{
+                .enqueue(object : Callback<PostNewUser> {
                     override fun onResponse(
                         call: Call<PostNewUser>,
                         response: Response<PostNewUser>
@@ -48,11 +50,12 @@ class UserViewModel @Inject constructor(api : ApiUserServices) : ViewModel(){
         }
         return messageResponse
     }
-    fun updateDataUser(id: String, requestUser: RequestUser) : Boolean{
+
+    fun updateDataUser(id: String, requestUser: RequestUser): Boolean {
         var messageResponse = false
         viewModelScope.launch {
             apiServices.updateDataUser(id, requestUser)
-                .enqueue(object : Callback<List<GetAllUserResponseItem>>{
+                .enqueue(object : Callback<List<GetAllUserResponseItem>> {
                     override fun onResponse(
                         call: Call<List<GetAllUserResponseItem>>,
                         response: Response<List<GetAllUserResponseItem>>

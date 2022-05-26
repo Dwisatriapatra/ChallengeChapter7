@@ -11,10 +11,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoriteFilmViewModel @Inject constructor(favoriteFilmDao: FavoriteFilmDao) : ViewModel(){
+class FavoriteFilmViewModel @Inject constructor(favoriteFilmDao: FavoriteFilmDao) : ViewModel() {
     private val liveDataFavoriteFilm = MutableLiveData<List<FavoriteFilm>>()
-    var favoriteFilm : LiveData<List<FavoriteFilm>> = liveDataFavoriteFilm
+    var favoriteFilm: LiveData<List<FavoriteFilm>> = liveDataFavoriteFilm
     private val dao = favoriteFilmDao
+
     init {
         viewModelScope.launch {
             val dataFavoriteFilm = favoriteFilmDao.getFavoriteFilm()
@@ -22,13 +23,13 @@ class FavoriteFilmViewModel @Inject constructor(favoriteFilmDao: FavoriteFilmDao
         }
     }
 
-    fun insertNewFavoriteFilm(favoriteFilm: FavoriteFilm){
+    fun insertNewFavoriteFilm(favoriteFilm: FavoriteFilm) {
         viewModelScope.launch {
             dao.insertFavoriteFilm(favoriteFilm)
         }
     }
 
-    fun deleteFavoriteFilm(id : Int){
+    fun deleteFavoriteFilm(id: Int) {
         viewModelScope.launch {
             dao.deleteFavoriteFilmById(id)
         }

@@ -37,7 +37,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val image = "http://placeimg.com/640/480/city"
         val password = registerFragmentBinding!!.registerInputPassword.text.toString()
         val email = registerFragmentBinding!!.registerInputEmail.text.toString()
-        val konfirmasiPassword = registerFragmentBinding!!.registerInputKonfirmasiPassword.text.toString()
+        val konfirmasiPassword =
+            registerFragmentBinding!!.registerInputKonfirmasiPassword.text.toString()
 
         //check if all fields is not empty
         if (nama.isNotEmpty() && username.isNotEmpty() && alamat.isNotEmpty() &&
@@ -47,13 +48,29 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             //check similarity of password and konfirmasiPassword
             if (password == konfirmasiPassword) {
                 CoroutineScope(Dispatchers.Main).launch {
-                    viewModelUser.insertNewUser(RequestUser(alamat, email, image, nama, password, tanggalLahir, username)).also {
-                        Toast.makeText(requireContext(), "Berhasil register", Toast.LENGTH_SHORT).show()
+                    viewModelUser.insertNewUser(
+                        RequestUser(
+                            alamat,
+                            email,
+                            image,
+                            nama,
+                            password,
+                            tanggalLahir,
+                            username
+                        )
+                    ).also {
+                        Toast.makeText(requireContext(), "Berhasil register", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
-                Navigation.findNavController(requireView()).navigate(R.id.action_registerFragment_to_loginFragment)
+                Navigation.findNavController(requireView())
+                    .navigate(R.id.action_registerFragment_to_loginFragment)
             } else {
-                Toast.makeText(requireContext(),"Password dan konfirmasi password harus sama", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Password dan konfirmasi password harus sama",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         } else {
             Toast.makeText(requireContext(), "Semua field harus diisi", Toast.LENGTH_SHORT).show()

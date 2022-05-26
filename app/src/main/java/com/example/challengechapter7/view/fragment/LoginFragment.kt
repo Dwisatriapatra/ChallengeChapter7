@@ -49,9 +49,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val inputanPassword = loginFragmentBinding!!.loginInputPassword.text.toString()
         userLoginManager = UserLoginManager(requireContext())
 
-        if(inputanEmail.isNotEmpty() && inputanPassword.isNotEmpty()){
-            for (i in listUser.indices){
-                if(inputanEmail == listUser[i].email && inputanPassword == listUser[i].password){
+        if (inputanEmail.isNotEmpty() && inputanPassword.isNotEmpty()) {
+            for (i in listUser.indices) {
+                if (inputanEmail == listUser[i].email && inputanPassword == listUser[i].password) {
                     Toast.makeText(requireContext(), "Login berhasil", Toast.LENGTH_SHORT).show()
                     //saving data to datastore
                     GlobalScope.launch {
@@ -67,14 +67,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             listUser[i].username
                         )
                     }
-                    Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_homeFragment)
+                    Navigation.findNavController(requireView())
+                        .navigate(R.id.action_loginFragment_to_homeFragment)
                     break
-                }else if(i == listUser.lastIndex && inputanEmail != listUser[i].email && inputanPassword != listUser[i].password){
-                    Toast.makeText(requireContext(), "Email/password salah", Toast.LENGTH_SHORT).show()
+                } else if (i == listUser.lastIndex && inputanEmail != listUser[i].email && inputanPassword != listUser[i].password) {
+                    Toast.makeText(requireContext(), "Email/password salah", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
-        }else{
-            Toast.makeText(requireContext(), "Email dan password harus diisi", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Email dan password harus diisi", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 }

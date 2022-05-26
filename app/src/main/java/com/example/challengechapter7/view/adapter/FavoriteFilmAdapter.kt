@@ -9,11 +9,11 @@ import com.example.challengechapter7.R
 import com.example.challengechapter7.databinding.ItemAdapterGhibliFilmBinding
 import com.example.challengechapter7.model.FavoriteFilm
 
-class FavoriteFilmAdapter(private val onClick : (FavoriteFilm) -> Unit) :
-RecyclerView.Adapter<FavoriteFilmAdapter.ViewHolder>(){
+class FavoriteFilmAdapter(private val onClick: (FavoriteFilm) -> Unit) :
+    RecyclerView.Adapter<FavoriteFilmAdapter.ViewHolder>() {
 
-    private var listFavoriteGhibliFilm : List<FavoriteFilm>? = null
-    fun setDataFavoriteGhibliFilms(list : List<FavoriteFilm>){
+    private var listFavoriteGhibliFilm: List<FavoriteFilm>? = null
+    fun setDataFavoriteGhibliFilms(list: List<FavoriteFilm>) {
         this.listFavoriteGhibliFilm = list
     }
 
@@ -31,14 +31,14 @@ RecyclerView.Adapter<FavoriteFilmAdapter.ViewHolder>(){
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: FavoriteFilmAdapter.ViewHolder, position: Int) {
-        with(holder){
-            with(listFavoriteGhibliFilm!![position]){
+        with(holder) {
+            with(listFavoriteGhibliFilm!![position]) {
                 binding.ghibliFilmsTitle.text = "Title : $judulRomaji / " +
                         "$judulInggris ($judulOriginal)"
                 binding.ghibliFilmsProducer.text = "Producer : $producer"
                 binding.ghibliFilmsDirector.text = "Director : $director"
                 binding.ghibliFilmsReleaseData.text = "Release date : $releaseDate"
-                binding.ghibliFilmRating.text = "${rating!!.toInt()/10.0}"
+                binding.ghibliFilmRating.text = "${rating!!.toInt() / 10.0}"
                 Glide.with(binding.ghibliFilmsImage.context)
                     .load(image)
                     .override(100, 150)
@@ -52,9 +52,9 @@ RecyclerView.Adapter<FavoriteFilmAdapter.ViewHolder>(){
     }
 
     override fun getItemCount(): Int {
-        return if(listFavoriteGhibliFilm.isNullOrEmpty()){
+        return if (listFavoriteGhibliFilm.isNullOrEmpty()) {
             0
-        }else{
+        } else {
             listFavoriteGhibliFilm!!.size
         }
     }

@@ -13,8 +13,8 @@ class GhibliFilmsAdapter(
     private val onClick: (GetAllGhibliFilmResponseItem) -> Unit
 ) : RecyclerView.Adapter<GhibliFilmsAdapter.ViewHolder>() {
     // initializing list dan make function to set value of that list
-    private var listGhibliFilms : List<GetAllGhibliFilmResponseItem>? = null
-    fun setDataGhibliFilms(list : List<GetAllGhibliFilmResponseItem>){
+    private var listGhibliFilms: List<GetAllGhibliFilmResponseItem>? = null
+    fun setDataGhibliFilms(list: List<GetAllGhibliFilmResponseItem>) {
         this.listGhibliFilms = list
     }
 
@@ -41,7 +41,7 @@ class GhibliFilmsAdapter(
                 binding.ghibliFilmsProducer.text = "Producer : $producer"
                 binding.ghibliFilmsDirector.text = "Director : $director"
                 binding.ghibliFilmsReleaseData.text = "Release date : $release_date"
-                binding.ghibliFilmRating.text = "${rt_score.toInt()/10.0}"
+                binding.ghibliFilmRating.text = "${rt_score.toInt() / 10.0}"
                 Glide.with(binding.ghibliFilmsImage.context)
                     .load(image)
                     .error(R.drawable.ic_launcher_background)
@@ -56,9 +56,9 @@ class GhibliFilmsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if(listGhibliFilms.isNullOrEmpty()){
+        return if (listGhibliFilms.isNullOrEmpty()) {
             0
-        }else{
+        } else {
             listGhibliFilms!!.size
         }
     }

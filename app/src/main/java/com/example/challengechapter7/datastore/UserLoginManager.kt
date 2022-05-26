@@ -44,61 +44,61 @@ class UserLoginManager(context: Context) {
         }
     }
 
-    suspend fun setImageProfile(string : String){
+    suspend fun setImageProfile(string: String) {
         dataStore.edit {
             it[IMAGEPROFILE] = string
         }
     }
 
-    suspend fun setBoolean(boolean: Boolean){
+    suspend fun setBoolean(boolean: Boolean) {
         dataStore.edit {
             it[BOOLEAN] = boolean
         }
     }
 
-    suspend fun clearDataLogin(){
+    suspend fun clearDataLogin() {
         dataStore.edit {
             it.clear()
         }
     }
 
-    val address : Flow<String> = dataStore.data.map {
+    val address: Flow<String> = dataStore.data.map {
         it[ADDRESS] ?: ""
     }
 
-    val email : Flow<String> = dataStore.data.map {
+    val email: Flow<String> = dataStore.data.map {
         it[EMAIL] ?: ""
     }
 
-    val IDuser : Flow<String> = dataStore.data.map {
+    val IDuser: Flow<String> = dataStore.data.map {
         it[IDUSER] ?: ""
     }
 
-    val image : Flow<String> = dataStore.data.map {
+    val image: Flow<String> = dataStore.data.map {
         it[IMAGE] ?: ""
     }
 
-    val name : Flow<String> = dataStore.data.map {
+    val name: Flow<String> = dataStore.data.map {
         it[NAME] ?: ""
     }
 
-    val password : Flow<String> = dataStore.data.map {
+    val password: Flow<String> = dataStore.data.map {
         it[PASSWORD] ?: ""
     }
 
-    val dateOfBirth : Flow<String> = dataStore.data.map {
+    val dateOfBirth: Flow<String> = dataStore.data.map {
         it[DATE_OF_BIRTH] ?: ""
     }
 
-    val username : Flow<String> = dataStore.data.map {
+    val username: Flow<String> = dataStore.data.map {
         it[USERNAME] ?: ""
     }
 
-    val boolean : Flow<Boolean> = dataStore.data.map {
+    val boolean: Flow<Boolean> = dataStore.data.map {
         it[BOOLEAN] ?: false
     }
 
-    val imageProfile : Flow<String> = dataStore.data.map {
+    val imageProfile: Flow<String> = dataStore.data.map {
         it[IMAGEPROFILE] ?: ""
     }
 }

@@ -2,7 +2,7 @@ package com.example.challengechapter7.model
 
 import com.google.gson.annotations.SerializedName
 
-data class PostNewUser (
+data class PostNewUser(
     @SerializedName("alamat")
     val alamat: String,
     @SerializedName("email")

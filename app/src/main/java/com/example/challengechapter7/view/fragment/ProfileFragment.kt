@@ -26,20 +26,22 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private var profileFragmentBinding: FragmentProfileBinding? = null
     private lateinit var userLoginManager: UserLoginManager
     private lateinit var takeImage: ActivityResultLauncher<Intent>
-    private lateinit var userViewModel : UserViewModel
+    private lateinit var userViewModel: UserViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        takeImage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data ->
-            if (data.resultCode == Activity.RESULT_OK) {
-                handleImageTakenFromCamera(data.data)
+        takeImage =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { data ->
+                if (data.resultCode == Activity.RESULT_OK) {
+                    handleImageTakenFromCamera(data.data)
+                }
             }
-        }
         val binding = FragmentProfileBinding.bind(view)
         profileFragmentBinding = binding
 
@@ -56,12 +58,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             AlertDialog.Builder(requireContext())
                 .setTitle("UBAH FOTO PROFILE")
                 .setMessage("Pilih metode untuk mengambil foto profile yang baru")
-                .setNeutralButton("Batal"){ dialogIterface : DialogInterface, _ : Int ->
+                .setNeutralButton("Batal") { dialogIterface: DialogInterface, _: Int ->
                     dialogIterface.dismiss()
-                }.setPositiveButton("Penyimpanan"){ _: DialogInterface, _ : Int ->
+                }.setPositiveButton("Penyimpanan") { _: DialogInterface, _: Int ->
                     openImageGallery()
                 }
-                .setNegativeButton("Kamera"){ _ : DialogInterface, _ : Int ->
+                .setNegativeButton("Kamera") { _: DialogInterface, _: Int ->
                     openCamera()
                 }.show()
         }
@@ -72,14 +74,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         AlertDialog.Builder(requireContext())
             .setTitle("Logout")
             .setMessage("Apakah anda yakin ingin logout?")
-            .setNegativeButton("TIDAK"){ dialogInterface : DialogInterface, _: Int ->
+            .setNegativeButton("TIDAK") { dialogInterface: DialogInterface, _: Int ->
                 dialogInterface.dismiss()
             }
-            .setPositiveButton("YA"){ _: DialogInterface, _: Int ->
+            .setPositiveButton("YA") { _: DialogInterface, _: Int ->
                 GlobalScope.launch {
                     userLoginManager.clearDataLogin()
                 }
-                val mIntent =activity?.intent
+                val mIntent = activity?.intent
                 activity?.finish()
                 startActivity(mIntent)
             }.show()
@@ -96,27 +98,29 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         val password = profileFragmentBinding!!.profilePassword.text.toString()
         val namaLengkap = profileFragmentBinding!!.profileNamaLengkap.text.toString()
         //get id for current user
-        userLoginManager.IDuser.asLiveData().observe(viewLifecycleOwner){
+        userLoginManager.IDuser.asLiveData().observe(viewLifecycleOwner) {
             id = it.toString()
         }
 
         AlertDialog.Builder(requireContext())
             .setTitle("Update data")
             .setMessage("Yakin ingin mengupdate data?")
-            .setNegativeButton("TIDAK"){ dialogInterface : DialogInterface, _: Int ->
+            .setNegativeButton("TIDAK") { dialogInterface: DialogInterface, _: Int ->
                 dialogInterface.dismiss()
             }
-            .setPositiveButton("YA"){ _: DialogInterface, _: Int ->
+            .setPositiveButton("YA") { _: DialogInterface, _: Int ->
                 userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-                userViewModel.updateDataUser(id, RequestUser(
-                    alamat,
-                    email,
-                    image,
-                    namaLengkap,
-                    password,
-                    tanggalLahir,
-                    username
-                ))
+                userViewModel.updateDataUser(
+                    id, RequestUser(
+                        alamat,
+                        email,
+                        image,
+                        namaLengkap,
+                        password,
+                        tanggalLahir,
+                        username
+                    )
+                )
                 Toast.makeText(requireContext(), "Update data berhasil", Toast.LENGTH_SHORT).show()
                 GlobalScope.launch {
                     userLoginManager.saveDataLogin(
@@ -141,36 +145,36 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun initField() {
         userLoginManager = UserLoginManager(requireContext())
 
-        userLoginManager.imageProfile.asLiveData().observe(viewLifecycleOwner){
-            if(it.isNullOrEmpty()){
-                userLoginManager.image.asLiveData().observe(viewLifecycleOwner){ result ->
+        userLoginManager.imageProfile.asLiveData().observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
+                userLoginManager.image.asLiveData().observe(viewLifecycleOwner) { result ->
                     Glide.with(profileFragmentBinding!!.profileImage.context)
                         .load(result)
                         .error(R.drawable.profile_photo)
                         .override(100, 100)
                         .into(profileFragmentBinding!!.profileImage)
                 }
-            }else{
+            } else {
                 profileFragmentBinding!!.profileImage.setImageBitmap(convertStringToBitmap(it))
             }
         }
 
-        userLoginManager.name.asLiveData().observe(viewLifecycleOwner){
+        userLoginManager.name.asLiveData().observe(viewLifecycleOwner) {
             profileFragmentBinding!!.profileNamaLengkap.setText(it.toString())
         }
-        userLoginManager.dateOfBirth.asLiveData().observe(viewLifecycleOwner){
+        userLoginManager.dateOfBirth.asLiveData().observe(viewLifecycleOwner) {
             profileFragmentBinding!!.profileTanggalLahir.setText(it.toString())
         }
-        userLoginManager.address.asLiveData().observe(viewLifecycleOwner){
+        userLoginManager.address.asLiveData().observe(viewLifecycleOwner) {
             profileFragmentBinding!!.profileAlamat.setText(it.toString())
         }
-        userLoginManager.email.asLiveData().observe(viewLifecycleOwner){
+        userLoginManager.email.asLiveData().observe(viewLifecycleOwner) {
             profileFragmentBinding!!.profileEmail.setText(it.toString())
         }
-        userLoginManager.username.asLiveData().observe(viewLifecycleOwner){
+        userLoginManager.username.asLiveData().observe(viewLifecycleOwner) {
             profileFragmentBinding!!.profileUsername.setText(it.toString())
         }
-        userLoginManager.password.asLiveData().observe(viewLifecycleOwner){
+        userLoginManager.password.asLiveData().observe(viewLifecycleOwner) {
             profileFragmentBinding!!.profilePassword.setText(it.toString())
             profileFragmentBinding!!.profileKonfirmasiPassword.setText(it.toString())
         }
@@ -196,24 +200,25 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     //function to open gallery and set profile image
     private val bitmapResult =
         registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
-            val originBitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, result)
+            val originBitmap =
+                MediaStore.Images.Media.getBitmap(requireContext().contentResolver, result)
             userLoginManager = UserLoginManager(requireContext())
-            val editedBitmap : Bitmap
+            val editedBitmap: Bitmap
 
-            if (originBitmap.width >= originBitmap.height){
+            if (originBitmap.width >= originBitmap.height) {
                 editedBitmap = Bitmap.createBitmap(
                     originBitmap,
-                    originBitmap.width /2 - originBitmap.height /2,
+                    originBitmap.width / 2 - originBitmap.height / 2,
                     0,
                     originBitmap.height,
                     originBitmap.height
                 )
 
-            }else{
+            } else {
                 editedBitmap = Bitmap.createBitmap(
                     originBitmap,
                     0,
-                    originBitmap.height /2 - originBitmap.width /2,
+                    originBitmap.height / 2 - originBitmap.width / 2,
                     originBitmap.width,
                     originBitmap.width
                 )
@@ -225,9 +230,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 userLoginManager.setImageProfile(stringResult)
             }
             profileFragmentBinding!!.profileImage.setImageBitmap(convertStringToBitmap(stringResult))
-            Toast.makeText(requireContext(), "Foto profile berhasil diupdate", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Foto profile berhasil diupdate", Toast.LENGTH_SHORT)
+                .show()
         }
-    private fun openImageGallery(){
+
+    private fun openImageGallery() {
         bitmapResult.launch("image/*")
     }
 
@@ -237,24 +244,25 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         takeImage.launch(cameraIntent)
     }
-    private fun handleImageTakenFromCamera(a : Intent?){
-        val originBitmap = a?.extras?.get("data") as Bitmap
-        val editedBitmap : Bitmap
 
-        if (originBitmap.width >= originBitmap.height){
+    private fun handleImageTakenFromCamera(a: Intent?) {
+        val originBitmap = a?.extras?.get("data") as Bitmap
+        val editedBitmap: Bitmap
+
+        if (originBitmap.width >= originBitmap.height) {
             editedBitmap = Bitmap.createBitmap(
                 originBitmap,
-                originBitmap.width /2 - originBitmap.height /2,
+                originBitmap.width / 2 - originBitmap.height / 2,
                 0,
                 originBitmap.height,
                 originBitmap.height
             )
 
-        }else{
+        } else {
             editedBitmap = Bitmap.createBitmap(
                 originBitmap,
                 0,
-                originBitmap.height /2 - originBitmap.width /2,
+                originBitmap.height / 2 - originBitmap.width / 2,
                 originBitmap.width,
                 originBitmap.width
             )
@@ -265,6 +273,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             userLoginManager.setImageProfile(stringResult!!)
         }
         profileFragmentBinding!!.profileImage.setImageBitmap(convertStringToBitmap(stringResult))
-        Toast.makeText(requireContext(), "Foto profile berhasil diupdate", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Foto profile berhasil diupdate", Toast.LENGTH_SHORT)
+            .show()
     }
 }

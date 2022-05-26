@@ -31,7 +31,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun getAllDetail() {
         favoriteFilmViewModel = ViewModelProvider(this).get(FavoriteFilmViewModel::class.java)
-        if(requireArguments().containsKey("FAVORITEGHIBLIFILMDATA")){
+        if (requireArguments().containsKey("FAVORITEGHIBLIFILMDATA")) {
             val detail = arguments?.getParcelable<FavoriteFilm>("FAVORITEGHIBLIFILMDATA")
             detailFragmentBinding!!.detailDeskripsi.text = detail!!.description
             detailFragmentBinding!!.detailDirector.text = detail.director
@@ -39,7 +39,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             detailFragmentBinding!!.detailJudulAsli.text = detail.judulOriginal
             detailFragmentBinding!!.detailJudulInggris.text = detail.judulInggris
             detailFragmentBinding!!.detailJudulRomaji.text = detail.judulRomaji
-            detailFragmentBinding!!.detailRating.text = (detail.rating!!.toInt()/10.0).toString()
+            detailFragmentBinding!!.detailRating.text = (detail.rating!!.toInt() / 10.0).toString()
             detailFragmentBinding!!.detailTanggalRilis.text = detail.releaseDate
             Glide.with(detailFragmentBinding!!.detailImage.context)
                 .load(detail.image)
@@ -50,25 +50,32 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 AlertDialog.Builder(requireContext())
                     .setTitle("HAPUS FILM DARI LIST FAVORIT")
                     .setMessage("Anda yakin ingin menghapus film ini dari list favorit?")
-                    .setNegativeButton("TIDAK"){ dialogInterface : DialogInterface, _: Int ->
+                    .setNegativeButton("TIDAK") { dialogInterface: DialogInterface, _: Int ->
                         dialogInterface.dismiss()
                     }
-                    .setPositiveButton("YA"){ _: DialogInterface, _: Int ->
+                    .setPositiveButton("YA") { _: DialogInterface, _: Int ->
                         favoriteFilmViewModel.deleteFavoriteFilm(detail.id!!)
-                        Toast.makeText(requireContext(), "Data berhasil dihapus dari list favorit", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Data berhasil dihapus dari list favorit",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }.show()
             }
 
             detailFragmentBinding!!.detailShare.setOnClickListener {
-                val intent= Intent()
-                intent.action=Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT,"Hey Check out this great film: ${detail.judulInggris}!")
-                intent.type="text/plain"
-                startActivity(Intent.createChooser(intent,"Share To:"))
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Hey Check out this great film: ${detail.judulInggris}!"
+                )
+                intent.type = "text/plain"
+                startActivity(Intent.createChooser(intent, "Share To:"))
             }
 
 
-        }else if(requireArguments().containsKey("GHIBLIFILMDATA")){
+        } else if (requireArguments().containsKey("GHIBLIFILMDATA")) {
             val detail = arguments?.getParcelable<GetAllGhibliFilmResponseItem>("GHIBLIFILMDATA")
 
             detailFragmentBinding!!.detailDeskripsi.text = detail!!.description
@@ -77,7 +84,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
             detailFragmentBinding!!.detailJudulAsli.text = detail.original_title
             detailFragmentBinding!!.detailJudulInggris.text = detail.title
             detailFragmentBinding!!.detailJudulRomaji.text = detail.original_title_romanised
-            detailFragmentBinding!!.detailRating.text = (detail.rt_score.toInt()/10.0).toString()
+            detailFragmentBinding!!.detailRating.text = (detail.rt_score.toInt() / 10.0).toString()
             detailFragmentBinding!!.detailTanggalRilis.text = detail.release_date
             Glide.with(detailFragmentBinding!!.detailImage.context)
                 .load(detail.image)
@@ -88,11 +95,15 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 AlertDialog.Builder(requireContext())
                     .setTitle("Tambah ke favorit")
                     .setMessage("Anda yakin ingin menambahkan film ke list favorit?")
-                    .setNegativeButton("TIDAK"){ dialogInterface : DialogInterface, _: Int ->
+                    .setNegativeButton("TIDAK") { dialogInterface: DialogInterface, _: Int ->
                         dialogInterface.dismiss()
                     }
-                    .setPositiveButton("YA"){ _: DialogInterface, _ : Int ->
-                        Toast.makeText(requireContext(), "Data berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+                    .setPositiveButton("YA") { _: DialogInterface, _: Int ->
+                        Toast.makeText(
+                            requireContext(),
+                            "Data berhasil ditambahkan",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         favoriteFilmViewModel.insertNewFavoriteFilm(
                             FavoriteFilm(
                                 null,
@@ -106,15 +117,19 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                                 detail.description,
                                 detail.image,
                                 detail.id
-                            ))
+                            )
+                        )
                     }.show()
             }
             detailFragmentBinding!!.detailShare.setOnClickListener {
-                val intent= Intent()
-                intent.action=Intent.ACTION_SEND
-                intent.putExtra(Intent.EXTRA_TEXT,"Hey Check out this great film: ${detail.title}!")
-                intent.type="text/plain"
-                startActivity(Intent.createChooser(intent,"Share To:"))
+                val intent = Intent()
+                intent.action = Intent.ACTION_SEND
+                intent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Hey Check out this great film: ${detail.title}!"
+                )
+                intent.type = "text/plain"
+                startActivity(Intent.createChooser(intent, "Share To:"))
             }
         }
     }

@@ -8,12 +8,14 @@ import retrofit2.http.*
 
 interface ApiUserServices {
     @GET("datauserlogin")
-    suspend fun getAllUser() : List<GetAllUserResponseItem>
+    suspend fun getAllUser(): List<GetAllUserResponseItem>
+
     @POST("datauserlogin")
-    fun addDataUser(@Body reqUser : RequestUser) : Call<PostNewUser>
+    fun addDataUser(@Body reqUser: RequestUser): Call<PostNewUser>
+
     @PUT("datauserlogin/{id}")
     fun updateDataUser(
-        @Path("id") id : String,
-        @Body request : RequestUser
-    ) : Call<List<GetAllUserResponseItem>>
+        @Path("id") id: String,
+        @Body request: RequestUser
+    ): Call<List<GetAllUserResponseItem>>
 }
