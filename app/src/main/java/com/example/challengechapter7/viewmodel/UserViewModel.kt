@@ -48,4 +48,24 @@ class UserViewModel @Inject constructor(api : ApiUserServices) : ViewModel(){
         }
         return messageResponse
     }
+    fun updateDataUser(id: String, requestUser: RequestUser) : Boolean{
+        var messageResponse = false
+        viewModelScope.launch {
+            apiServices.updateDataUser(id, requestUser)
+                .enqueue(object : Callback<List<GetAllUserResponseItem>>{
+                    override fun onResponse(
+                        call: Call<List<GetAllUserResponseItem>>,
+                        response: Response<List<GetAllUserResponseItem>>
+                    ) {
+                        messageResponse = response.isSuccessful
+                    }
+
+                    override fun onFailure(call: Call<List<GetAllUserResponseItem>>, t: Throwable) {
+                        messageResponse = false
+                    }
+
+                })
+        }
+        return messageResponse
+    }
 }

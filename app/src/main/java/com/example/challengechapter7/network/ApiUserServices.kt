@@ -11,9 +11,9 @@ interface ApiUserServices {
     suspend fun getAllUser() : List<GetAllUserResponseItem>
     @POST("datauserlogin")
     fun addDataUser(@Body reqUser : RequestUser) : Call<PostNewUser>
-//    @PUT("datauserlogin/{id}")
-//    fun updateDataUser(
-//        @Path("id") id : String,
-//        @Body request : RequestUser
-//    ) : Call<List<GetAllUserResponseItem>>
+    @PUT("datauserlogin/{id}")
+    fun updateDataUser(
+        @Path("id") id : String,
+        @Body request : RequestUser
+    ) : Call<List<GetAllUserResponseItem>>
 }
