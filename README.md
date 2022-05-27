@@ -19,5 +19,6 @@ FEATURES
 - this project using MVVM design pattern
 - this project implement navigation component jetpack compose
 - this project use dagger-hilt as the dependency injection library
-- this project implement build flavoring (paid and free version), but in the next update. just for
-  learn
+- this project implement build flavoring (paid and free version), just for learn
+- the difference between paid and free version is that free version hasn't access to favorite film
+  page and can't add a film into favorite film page

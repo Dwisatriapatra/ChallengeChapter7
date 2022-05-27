@@ -3,11 +3,13 @@ package com.example.challengechapter7.view.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.challengechapter7.BuildConfig
 import com.example.challengechapter7.R
 import com.example.challengechapter7.databinding.FragmentHomeBinding
 import com.example.challengechapter7.datastore.UserLoginManager
@@ -59,6 +61,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeFragmentBinding!!.homeToFavorite.setOnClickListener {
             Navigation.findNavController(requireView())
                 .navigate(R.id.action_homeFragment_to_favoriteFragment)
+        }
+
+        if(BuildConfig.FLAVOR == "free"){
+            homeFragmentBinding!!.homeToFavorite.isInvisible = true
         }
     }
 }

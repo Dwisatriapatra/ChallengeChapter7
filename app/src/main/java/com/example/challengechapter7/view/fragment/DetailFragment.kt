@@ -6,9 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.challengechapter7.BuildConfig
 import com.example.challengechapter7.R
 import com.example.challengechapter7.databinding.FragmentDetailBinding
 import com.example.challengechapter7.model.FavoriteFilm
@@ -31,6 +33,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun getAllDetail() {
         favoriteFilmViewModel = ViewModelProvider(this).get(FavoriteFilmViewModel::class.java)
+
+        if(BuildConfig.FLAVOR == "free"){
+            detailFragmentBinding!!.detailAddOrRemoveFavorite.isInvisible = true
+        }
+
         if (requireArguments().containsKey("FAVORITEGHIBLIFILMDATA")) {
             val detail = arguments?.getParcelable<FavoriteFilm>("FAVORITEGHIBLIFILMDATA")
             detailFragmentBinding!!.detailDeskripsi.text = detail!!.description

@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/ChallengeChapter7/app/src/free/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/ChallengeChapter7/app/src/free/res/layout/fragment_detail.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/ChallengeChapter7/app/src/free/res/layout/fragment_splash.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/ChallengeChapter7/app/src/main/res/layout/fragment_detail.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/ChallengeChapter7/app/src/paid/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/ChallengeChapter7/app/src/paid/res/layout/fragment_detail.xml" value="0.14130434782608695" />
+        <entry key="..\:/Users/LENOVO/AndroidStudioProjects/ChallengeChapter7/app/src/paid/res/layout/fragment_splash.xml" value="0.14130434782608695" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_edit_24.xml" value="0.2205" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.34010416666666665" />
         <entry key="app/src/main/res/layout/fragment_detail.xml" value="0.34010416666666665" />
